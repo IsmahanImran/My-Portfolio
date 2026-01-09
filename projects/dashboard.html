@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personal Productivity Dashboard</title>
+
+<style>
+:root {
+    --bg: #0f172a;
+    --card: #020617;
+    --text: #e5e7eb;
+    --muted: #94a3b8;
+    --accent: #38bdf8;
+}
+
+.light {
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #020617;
+    --muted: #475569;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: system-ui, sans-serif;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+header {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    font-size: 22px;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 16px;
+    background: var(--accent);
+    color: #020617;
+    font-weight: 600;
+}
+
+main {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: var(--card);
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.card h2 {
+    margin-top: 0;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--muted);
+    border-radius: 10px;
+}
+
+input:focus, textarea:focus {
+    outline: 2px solid var(--accent);
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    gap: 8px;
+}
+
+.item span {
+    flex: 1;
+    word-break: break-word;
+}
+
+.item button {
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+@media (max-width: 600px) {
+    header {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+</style>
+</head>
+
+<body>
+<header>
+    <h1>Productivity Dashboard</h1>
+    <button id="toggleTheme">Toggle Theme</button>
+</header>
+
+<main>
+    <!-- TASKS -->
+    <section class="card">
+        <h2>Tasks</h2>
+        <input id="taskInput" placeholder="Add new task (Enter)" aria-label="Task input">
+        <div id="taskList"></div>
+    </section>
+
+    <!-- NOTES -->
+    <section class="card">
+        <h2>Notes</h2>
+        <textarea id="noteInput" rows="3" placeholder="Add a note (Ctrl+Enter)" aria-label="Note input"></textarea>
+        <div id="noteList"></div>
+    </section>
+
+    <!-- GOALS -->
+    <section class="card">
+        <h2>Goals</h2>
+        <input id="goalInput" placeholder="Add new goal (Enter)" aria-label="Goal input">
+        <div id="goalList"></div>
+    </section>
+</main>
+
+<script>
+const state = {
+    tasks: JSON.parse(localStorage.getItem("tasks")) || [],
+    notes: JSON.parse(localStorage.getItem("notes")) || [],
+    goals: JSON.parse(localStorage.getItem("goals")) || [],
+    theme: localStorage.getItem("theme") || "dark"
+};
+
+if (state.theme === "light") document.body.classList.add("light");
+
+const save = () => {
+    localStorage.setItem("tasks", JSON.stringify(state.tasks));
+    localStorage.setItem("notes", JSON.stringify(state.notes));
+    localStorage.setItem("goals", JSON.stringify(state.goals));
+};
+
+function render(list, container, type) {
+    container.innerHTML = "";
+    list.forEach((item, i) => {
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `
+            <span tabindex="0">${item}</span>
+            <button onclick="editItem('${type}', ${i})">Edit</button>
+            <button onclick="deleteItem('${type}', ${i})">X</button>
+        `;
+        container.appendChild(div);
+    });
+}
+
+function addItem(type, value) {
+    if (!value.trim()) return;
+    state[type].push(value);
+    save();
+    update();
+}
+
+function editItem(type, index) {
+    const updated = prompt("Edit item:", state[type][index]);
+    if (updated !== null) {
+        state[type][index] = updated;
+        save();
+        update();
+    }
+}
+
+function deleteItem(type, index) {
+    state[type].splice(index, 1);
+    save();
+    update();
+}
+
+function update() {
+    render(state.tasks, taskList, "tasks");
+    render(state.notes, noteList, "notes");
+    render(state.goals, goalList, "goals");
+}
+
+taskInput.addEventListener("keydown", e => {
+    if (e.key === "Enter") {
+        addItem("tasks", taskInput.value);
+        taskInput.value = "";
+    }
+});
+
+goalInput.addEventListener("keydown", e => {
+    if (e.key === "Enter") {
+        addItem("goals", goalInput.value);
+        goalInput.value = "";
+    }
+});
+
+noteInput.addEventListener("keydown", e => {
+    if (e.ctrlKey && e.key === "Enter") {
+        addItem("notes", noteInput.value);
+        noteInput.value = "";
+    }
+});
+
+toggleTheme.addEventListener("click", () => {
+    document.body.classList.toggle("light");
+    state.theme = document.body.classList.contains("light") ? "light" : "dark";
+    localStorage.setItem("theme", state.theme);
+});
+
+update();
+</script>
+</body>
+</html>
