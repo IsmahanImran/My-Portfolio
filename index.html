@@ -54,7 +54,17 @@
         align-items: center;
     }
 
-    nav h1 {
+    .desktop-only {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .desktop-only {
+    display: revert;
+  }
+}
+
+    nav div h1 {
         font-size: 21px;
         font-weight: 600;
         color: #38bdf8;
@@ -466,7 +476,7 @@ footer a:hover {
 
 <header>
     <nav>
-        <h1 class = "hidden md:block">Ismahan Imran</h1>
+        <div class = "desktop-only"><h1>Ismahan Imran</h1></div>
 
         <ul>
             <li><a href="#home">Home</a></li>
