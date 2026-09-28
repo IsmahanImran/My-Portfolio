@@ -5,7 +5,6 @@
     <meta charset="UTF-8" content="Ismahan Imran — Software Developer building web applications with Next.js, React, TypeScript, databases, APIs, and AI.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-```
 <title>Ismahan Imran | Web Developer</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -285,6 +284,45 @@
         text-decoration: underline;
     }
 
+    /* ================= AI ASSISTANT ================= */
+
+.assistant-card {
+    max-width: 600px;
+    margin: 40px auto 0;
+    padding: 35px;
+    text-align: center;
+    background: #111c32;
+    border: 1px solid #1e293b;
+    border-radius: 16px;
+}
+
+.assistant-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #020617;
+    color: #38bdf8;
+    font-size: 24px;
+    border: 1px solid #1e293b;
+}
+
+.assistant-card h4 {
+    font-size: 21px;
+    color: #f8fafc;
+    margin-bottom: 10px;
+}
+
+.assistant-card p {
+    color: #94a3b8;
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
     /* ================= CONTACT ================= */
 
     .contact form {
@@ -335,13 +373,26 @@
     /* ================= FOOTER ================= */
 
     footer {
-        text-align: center;
-        padding: 30px 20px;
-        background: #020617;
-        color: #64748b;
-        font-size: 13px;
-        border-top: 1px solid #1e293b;
-    }
+    text-align: center;
+    padding: 30px 20px;
+    background: #020617;
+    color: #64748b;
+    font-size: 13px;
+    border-top: 1px solid #1e293b;
+}
+
+footer p {
+    margin-bottom: 6px;
+}
+
+footer a {
+    color: #38bdf8;
+    transition: 0.3s;
+}
+
+footer a:hover {
+    color: #7dd3fc;
+}
 
     /* ================= MOBILE ================= */
 
@@ -415,14 +466,14 @@
 
 <header>
     <nav>
-        <h1>Ismahan Imran</h1>
+        <h1 class = "hidden md:block">Ismahan Imran</h1>
 
         <ul>
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#skills">Skills</a></li>
             <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#contact">Chat</a></li>
         </ul>
     </nav>
 </header>
@@ -456,17 +507,13 @@
 
     <h3>About Me</h3>
 
-    <p class="section-subtitle">
-        A quick introduction
-    </p>
-
     <div class="about-content">
         <p>
             My name is Ismahan Imran I am a computer Science student
             and developer based in Pakistan. I build web applications with
             Next.js, React, TypeScript, and backend technologies, with a 
-            particular interest in AI, automation, and databases. I like
-            learning by building things and figuring out how systems work.
+            particular interest in AI and automation. I like learning
+            by building things and figuring out how systems work.
         </p>
     </div>
 
@@ -513,41 +560,6 @@
         <div class="project-card">
 
             <h4>
-                <a href="https://notion-clone-with-ai-features.vercel.app/" target="_blank">
-                    Notion Clone with AI
-                </a>
-            </h4>
-
-            <p>
-                A full-stack collaborative workspace inspired by Notion,
-                allowing users to create and manage documents, 
-                invite other users with editing permissions and
-                interact with AI through summary and translation features.
-            </p>
-
-            <div class="project-tech">
-                <span>Next.js</span>
-                <span>TypeScript</span>
-                <span>Firebase</span>
-                <span>Liveblocks</span>
-                <span>Clerk</span>
-                <span>Cloudflare Workers</span>
-            </div>
-
-            <div class="project-links">
-                <a href="https://notion-clone-with-ai-features.vercel.app/" target="_blank">
-                    Live Demo →
-                </a>
-            </div>
-
-        </div>
-
-
-        <!-- PROJECT 2 -->
-
-        <div class="project-card">
-
-            <h4>
                 <a href="https://custom-ai-support-bot-generator.vercel.app/" target="_blank">
                   Assistly — AI Customer Support Chatbot
                 </a>
@@ -578,45 +590,76 @@
 
         </div>
 
+        <!-- PROJECT 2 -->
+
+        <div class="project-card">
+
+            <h4>
+                <a href="https://notion-clone-with-ai-features.vercel.app/" target="_blank">
+                    Notion Clone with AI
+                </a>
+            </h4>
+
+            <p>
+                A full-stack collaborative workspace inspired by Notion,
+                allowing users to create and manage documents, 
+                invite other users with editing permissions and
+                interact with AI through summary and translation features.
+            </p>
+
+            <div class="project-tech">
+                <span>Next.js</span>
+                <span>TypeScript</span>
+                <span>Firebase</span>
+                <span>Liveblocks</span>
+                <span>Clerk</span>
+                <span>Cloudflare Workers</span>
+            </div>
+
+            <div class="project-links">
+                <a href="https://notion-clone-with-ai-features.vercel.app/" target="_blank">
+                    Live Demo →
+                </a>
+            </div>
+
+        </div>
+
     </div>
 
 </section>
 
-
-<!-- ================= CONTACT ================= -->
+<!-- ================= AI ASSISTANT ================= -->
 
 <section class="contact" id="contact">
 
-    <h3>Contact Me</h3>
+    <h3>Let's Talk</h3>
 
     <p class="section-subtitle">
-        Interested in working together? Send me a message.
+        Want to know more about my work, projects, or experience?
+        Ask my AI assistant and get an answer right away.
     </p>
 
-    <form>
+    <div class="assistant-card">
 
-        <input
-            type="text"
-            placeholder="Your Name"
-            required
+        <div class="assistant-icon">✦</div>
+
+        <h4>Ask about my work</h4>
+
+        <p>
+            My AI assistant can tell you about my projects, technical
+            skills, experience, and the kind of work I can help with.
+        </p>
+
+        <a
+            href="https://custom-ai-support-bot-generator-l1cn48j9q-just-me-b8e2.vercel.app/chatbot/11"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn"
         >
+            Chat with my AI assistant →
+        </a>
 
-        <input
-            type="email"
-            placeholder="Your Email"
-            required
-        >
-
-        <textarea
-            rows="5"
-            placeholder="Your Message"
-        ></textarea>
-
-        <button type="submit">
-            Send Message
-        </button>
-
-    </form>
+    </div>
 
 </section>
 
@@ -624,9 +667,11 @@
 <!-- ================= FOOTER ================= -->
 
 <footer>
-    © 2026 Ismahan Imran · All Rights Reserved
+    <p>© 2026 Ismahan Imran</p>
+    <a href="mailto:isma.profile@gmail.com">
+        isma.profile@gmail.com
+    </a>
 </footer>
-```
 
 </body>
 </html>
